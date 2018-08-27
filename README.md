@@ -18,7 +18,7 @@ SomfyRemote allows you to control Somfy blinds using a simple web interface. The
 ## Setup
 ### Hardware
 As mentioned above, I have hacked a 433.42MHz replacement remote compatible with the Somfy protocol in order to be easily controlled by the ESP8266 board. To program the remote just follow the instructions that comes with it.
-<img src="images/remote_pinout.jpg" width=40%>
+<img src="images/remote_pinout.jpg" width=70%>
 
 The wiring is the following: 
 - +3V: __3V3__
@@ -28,7 +28,7 @@ The wiring is the following:
 - button 3: __GPIO 12__
 - button 4: __GPIO 12__
 
-<img src="images/breadboard.jpg" width=40%>
+<img src="images/breadboard.jpg" width=70%>
 
 
 ### Software
