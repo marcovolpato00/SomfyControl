@@ -1,0 +1,14 @@
+{
+    "devices": [
+        {
+            "button": 1,
+            "name": "Device 1",
+            "description": "Bedroom's blind"
+        },
+        {
+            "button": 2,
+            "name": "Device 2",
+            "description": "Kitchen's blind"
+        }
+    ]
+}

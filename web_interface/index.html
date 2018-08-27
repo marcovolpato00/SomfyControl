@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>SomfyControl</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="SomfyControl">
+  <meta name="apple-mobile-web-app-title" content="SomfyControl">
+  <meta name="theme-color" content="#ff8f00">
+  <meta name="msapplication-navbutton-color" content="#ff8f00">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-starturl" content="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<!--<body onload="translate()">-->
+<body>
+  <div id="app">
+
+    <nav class="amber darken-2" role="navigation">
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="index.html" class="brand-logo">SomfyControl</a>
+        <!--<ul class="right hide-on-med-and-down">
+          <li>
+            <a class="modal-trigger" href="#settings" translate-key="settings">Settings</a>
+          </li>
+        </ul>-->
+    </nav>
+
+    <!--<div id="settings" class="modal">
+      <div class="modal-content">
+        <h4 translate-key="settings">Settings</h4>
+
+        <div class="switch">
+          Sinric enabled
+          <label>
+            <input id="sinric_enabled" type="checkbox" :checked="config.sinric_enabled ? true : false">
+            <span class="lever"></span>
+          </label>
+        </div>
+
+        <div>
+          Sinric API key
+          <div class="input-field inline">
+            <input id="sinric_api_key" type="text" class="validate" :value="config.sinric_api_key">
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect btn-flat" translate-key="save" @click="saveSettings()">Save</a>
+      </div>
+    </div>-->
+
+    <div class="container center-align">
+      <h3 translate-key="devices_title">Devices</h3>
+
+      <div class="preloader-wrapper big active" id="preloader">
+        <div class="spinner-layer spinner-yellow-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 m7">
+        <div class="card horizontal" v-for="d in devices">
+          <div class="card-stacked">
+            <div class="card-content">
+              <div class="card-title">{{ d.name }}</div>
+              <p>{{ d.description }}</p>
+            </div>
+            <div class="card-action">
+              <a class="waves-effect waves-light btn amber darken-2" @click="click(d.button)" translate-key="open_close">Open
+                / Close</a>
+            </div>
+            <div class="progress amber hide" :id="d.button">
+              <div class="indeterminate amber darken-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+</body>
+<script src="main.js"></script>
+<!--<script src="translate.js"></script>-->
+
+</html>

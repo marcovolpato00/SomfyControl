@@ -1,0 +1,9 @@
+{
+    "name": "SomfyControl",
+    "short_name": "SomfyControl",
+    "lang": "en-US",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "theme_color": "#ff8f00"
+}

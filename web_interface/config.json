@@ -1,0 +1,6 @@
+{
+    "ssid": "YOUR_WIFI_SSID",
+    "password": "YOUR_WIFI_PASSWORD",
+    "sinric_enabled": false,
+    "sinric_api_key": "YOUR_SINRIC_API_KEY"
+}
