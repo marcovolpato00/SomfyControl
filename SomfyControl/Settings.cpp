@@ -22,6 +22,8 @@ void Settings::load()
     password = config.get<String>(str(PASSWORD_KEY));
     sinricEnabled = config.get<bool>(str(SINRIC_ENABLED_KEY));
     sinricApiKey = config.get<String>(str(SINRIC_KEY));
+    webUsername = config.get<String>(str(WEB_USER_KEY));
+    webPassword = config.get<String>(str(WEB_PASS_KEY));
 
     Serial.println("Settings loaded");
 }
@@ -36,18 +38,17 @@ bool Settings::save()
 bool Settings::update(String json)
 {
     DynamicJsonBuffer jsonBuffer(512);
-    JsonObject &config = jsonBuffer.parseObject(json);
+    JsonObject& config = jsonBuffer.parseObject(json);
 
     if(!config.success())
         return false;
 
-    config.printTo(json);
-    bool success = writeFile(CONFIG_FILE_PATH, json); 
-
-    if(success)
-        load();
+    bool success = true;
+    File configFile = SPIFFS.open("/config.json", "w");
+    if(!configFile)
+      return false;
     
-    return success;
+    return config.printTo(configFile);
 }
 
 String Settings::serializeToJsonString()
@@ -59,6 +60,8 @@ String Settings::serializeToJsonString()
     config.set(PASSWORD_KEY, password);
     config.set(SINRIC_ENABLED_KEY, sinricEnabled);
     config.set(SINRIC_KEY, sinricApiKey);
+    config.set(WEB_USER_KEY, webUsername);
+    config.set(WEB_PASS_KEY, webPassword);
 
     String buf;
     config.printTo(buf);
@@ -87,6 +90,16 @@ String Settings::getSinricApiKey()
     return sinricApiKey;
 }
 
+String Settings::getWebUsername()
+{
+    return webUsername;
+}
+
+String Settings::getWebPassword()
+{
+    return webPassword;
+}
+
 // setters
 void Settings::setSSID(String ssid)
 {
@@ -106,4 +119,14 @@ void Settings::setSinricEnabled(bool enabled)
 void Settings::setSinricApiKey(String key)
 {
     sinricApiKey = key;
+}
+
+void Settings::setWebUsername(String user)
+{
+    webUsername = user;
+}
+
+void Settings::setWebPassword(String pass)
+{
+    webPassword = pass;
 }

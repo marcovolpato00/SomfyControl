@@ -1,6 +1,9 @@
 {
     "settings": "Impostazioni",
     "save": "Salva",
+    "cancel": "Annulla",
     "devices_title": "Dispositivi",
-    "open_close": "Apri / Chiudi"
+    "open_close": "Apri / Chiudi",
+    "show_pass": "Mostra password",
+    "language": "Lingua interfaccia"
 }

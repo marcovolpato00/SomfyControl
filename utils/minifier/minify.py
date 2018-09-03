@@ -27,6 +27,9 @@ TYPES = {
 }
 EXCLUSIONS = ['devices.json', 'config.json']
 
+progmem_definitions = ''
+webserver_rules = ''
+
 def read_file(file_name):
     f = open(INPUT_DIR + file_name, 'r')
     data = f.read()
@@ -41,11 +44,8 @@ def compress(data):
     compressed = gzip.compress(str.encode(data))
     return compressed
 
-
-if __name__ == '__main__':
-    files = os.listdir(INPUT_DIR)
-    progmem_definitions = ''
-    webserver_rules = ''
+def minify(files):
+    global progmem_definitions, webserver_rules
 
     for f in files:
 
@@ -76,6 +76,10 @@ if __name__ == '__main__':
 
             if minified is not '':
                 name = f.split('.')[0]
+                try:
+                    name = name.split('/')[1]
+                except:
+                    pass
                 name = name + type_name
                 hex_formatted_content = ''
 
@@ -84,19 +88,33 @@ if __name__ == '__main__':
                 hex_content = binascii.hexlify(compress(minified))
                 hex_content = hex_content.decode('UTF-8')
                 hex_content = [hex_content[i:i+2]
-                            for i in range(0, len(hex_content), 2)]
+                               for i in range(0, len(hex_content), 2)]
 
                 for char in hex_content:
                     hex_formatted_content += '0x' + char + ', '
 
                 hex_formatted_content = hex_formatted_content[:-2]
-                progmem_definitions += 'const char ' + name + '[] PROGMEM = {' + hex_formatted_content + '};\n'
+                progmem_definitions += 'const char ' + name + \
+                    '[] PROGMEM = {' + hex_formatted_content + '};\n'
                 rule = """
                 server.on("/""" + f + """\", []() {
                     sendProgmem(""" + name + """, sizeof(""" + name + """), \"""" + TYPES[f.split('.')[1]] + """\");
                 });
                 """
                 webserver_rules += textwrap.dedent(rule)
+
+
+if __name__ == '__main__':
+    files = os.listdir(INPUT_DIR)
+    minify(files)
+
+    files = os.listdir(INPUT_DIR + 'langs/')
+    langs = []
+    for f in files:
+        lang = 'langs/' + f
+        langs.append(lang)
+    minify(langs)
+
 
     print('[+] Creating web files header...')
     output = open(OUTPUT_FILE, 'w')

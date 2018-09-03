@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SomfyControl</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="SomfyControl">
+    <meta name="apple-mobile-web-app-title" content="SomfyControl">
+    <meta name="theme-color" content="#ff8f00">
+    <meta name="msapplication-navbutton-color" content="#ff8f00">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <style>
+        html,
+        body,
+        .login-box {
+            height: 100%;
+        }
+
+        .input-field input:focus+label {
+            color: #ff8f00 !important;
+        }
+
+        .input-field input:focus {
+            border-bottom: 1px solid #ff8f00 !important;
+            box-shadow: 0 1px 0 0 #ff8f00 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="valign-wrapper row login-box">
+        <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+            <form id="login" method="POST" action="/login">
+                <div class="card-content">
+                    <span class="card-title"><b>SomfyControl</b></span>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" name="user" id="username">
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input type="password" name="pass" id="password">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action right-align">
+                    <a class="waves-effect waves-light btn amber darken-2" onclick="document.getElementById('login').submit()">Login</a>
+                    <input type="submit" value="" hidden>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

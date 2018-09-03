@@ -1,7 +1,7 @@
 var langJson = {};
 
-function translate() {
-	fetch("translation.lang").then(response => {
+function translate(lang) {
+	fetch("langs/" + lang + ".lang").then(response => {
 		return response.json();
 	}).then(data => {
 		parseLang(data);

@@ -1,6 +1,14 @@
 {
     "ssid": "YOUR_WIFI_SSID",
     "password": "YOUR_WIFI_PASSWORD",
+    "web_username": "admin",
+    "web_password": "password",
     "sinric_enabled": false,
-    "sinric_api_key": "YOUR_SINRIC_API_KEY"
+    "sinric_api_key": "YOUR_SINRIC_API_KEY",
+    "language": "en",
+    "languages": {
+        "en": "English",
+        "it": "Italiano",
+        "fr": "Française"
+    }
 }

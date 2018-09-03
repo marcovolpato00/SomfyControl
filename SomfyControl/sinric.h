@@ -73,7 +73,7 @@ void webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
         String deviceId = json["deviceId"];
         String action = json["action"];
 
-        if (deviceId == "5b6012f724513228b362d81f") // Device ID of first device
+        if (deviceId == "YOUR_DEVICE_ID") // Device ID of first device
         {
             if (action == "setPowerState")
             { // On or Off

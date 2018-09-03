@@ -1,6 +1,8 @@
 #ifndef somfyremote_h
 #define somfyremote_h
 
+#include "Arduino.h"
+
 class SomfyRemote
 {
     // default pins

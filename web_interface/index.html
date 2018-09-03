@@ -17,46 +17,131 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+  <style>
+    .switch label input[type=checkbox]:checked+.lever {
+      background-color: #ffb300;
+    }
+
+    .switch label input[type=checkbox]:checked+.lever:after {
+      background-color: #ff8f00;
+    }
+
+    .input-field input:focus+label {
+      color: #ff8f00 !important;
+    }
+
+    .input-field input:focus {
+      border-bottom: 1px solid #ff8f00 !important;
+      box-shadow: 0 1px 0 0 #ff8f00 !important;
+    }
+
+    [type="checkbox"].filled-in:checked+span:not(.lever):after {
+      top: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #ff8f00;
+      background-color: #ff8f00;
+      z-index: 0;
+    }
+
+  </style>
 </head>
 
-<!--<body onload="translate()">-->
 <body>
   <div id="app">
 
-    <nav class="amber darken-2" role="navigation">
+    <nav class="amber darken-2">
       <div class="nav-wrapper container">
-        <a id="logo-container" href="index.html" class="brand-logo">SomfyControl</a>
-        <!--<ul class="right hide-on-med-and-down">
+        <a href="index.html" class="brand-logo center">SomfyControl</a>
+        <a data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
           <li>
             <a class="modal-trigger" href="#settings" translate-key="settings">Settings</a>
           </li>
-        </ul>-->
+          <li>
+            <a href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
     </nav>
 
-    <!--<div id="settings" class="modal">
+    <ul class="sidenav" id="mobile">
+      <li>
+        <a class="modal-trigger" href="#settings" translate-key="settings">Settings</a>
+      </li>
+      <li>
+        <a href="/logout">Logout</a>
+      </li>
+    </ul>
+
+    <div id="settings" class="modal">
       <div class="modal-content">
-        <h4 translate-key="settings">Settings</h4>
+        <h4 translate-key="settings" class="center-align">Settings</h4>
+        <br>
 
-        <div class="switch">
-          Sinric enabled
-          <label>
-            <input id="sinric_enabled" type="checkbox" :checked="config.sinric_enabled ? true : false">
-            <span class="lever"></span>
-          </label>
-        </div>
-
-        <div>
-          Sinric API key
-          <div class="input-field inline">
-            <input id="sinric_api_key" type="text" class="validate" :value="config.sinric_api_key">
+        <div class="row">
+          <div class="col s12 m6 offset-m3">
+            <div class="row">
+              <div class="switch">
+                <label>
+                  <input id="sinric_enabled" type="checkbox" :checked="config.sinric_enabled ? true : false">
+                  <span class="lever"></span>
+                  Sinric enabled
+                </label>
+              </div>
+              <br>
+              <div class="input-field col s12">
+                <input id="sinric_api_key" type="text" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" :value="config.sinric_api_key">
+                <label for="sinric_api_key">Sinric API key</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="ssid" type="text" placeholder="SSID" :value="config.ssid">
+                <label for="ssid">WiFi SSID</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="password" type="password" placeholder="Password" :value="config.password">
+                <label for="password">WiFi password</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="web_username" type="text" placeholder="Username" :value="config.web_username">
+                <label for="web_username">Web UI username</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="web_password" type="password" placeholder="Password" :value="config.web_password">
+                <label for="web_password">Web UI password</label>
+              </div>
+              <label translate-key="language">Language</label>
+              <select class="browser-default" id="language">
+                <option :value="key" :selected="config.language == key" v-for="(value, key) in langs">{{ value }}</option>
+              </select>
+            </div>
           </div>
         </div>
 
       </div>
       <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect btn-flat" translate-key="save" @click="saveSettings()">Save</a>
+
+        <div class="container hide-on-small-only">
+          <label class="left">
+            <input type="checkbox" class="filled-in" id="show-password" @click="showPasswords()" />
+            <span translate-key="show_pass">Show passowords</span>
+          </label>
+          <a class="modal-close waves-effect btn-flat" translate-key="cancel">Cancel</a>
+          <a class="modal-close waves-effect btn amber darken-2" translate-key="save" @click="saveSettings()">Save</a>
+        </div>
+
+        <div class="show-on-small hide-on-med-and-up">
+          <label>
+            <input type="checkbox" class="filled-in" id="show-password" @click="showPasswords()" />
+            <span translate-key="show_pass">Show passowords</span>
+          </label>
+          <a class="modal-close waves-effect btn-flat" translate-key="cancel">Cancel</a>
+          <a class="modal-close waves-effect btn amber darken-2" translate-key="save" @click="saveSettings()">Save</a>
+        </div>
+
       </div>
-    </div>-->
+    </div>
 
     <div class="container center-align">
       <h3 translate-key="devices_title">Devices</h3>
@@ -75,16 +160,17 @@
         </div>
       </div>
 
-      <div class="col s12 m7">
-        <div class="card horizontal" v-for="d in devices">
-          <div class="card-stacked">
+      <div class="row">
+        <div class="col s12 m8 offset-m2">
+          <div class="card hoverable" v-for="d in devices">
             <div class="card-content">
               <div class="card-title">{{ d.name }}</div>
               <p>{{ d.description }}</p>
             </div>
             <div class="card-action">
               <a class="waves-effect waves-light btn amber darken-2" @click="click(d.button)" translate-key="open_close">Open
-                / Close</a>
+                / Close
+              </a>
             </div>
             <div class="progress amber hide" :id="d.button">
               <div class="indeterminate amber darken-4"></div>
@@ -92,11 +178,12 @@
           </div>
         </div>
       </div>
-    </div>
 
     </div>
+
+  </div>
 </body>
 <script src="main.js"></script>
-<!--<script src="translate.js"></script>-->
+<script src="translate.js"></script>
 
 </html>

@@ -1,4 +1,3 @@
-#include "Arduino.h"
 #include "SomfyRemote.h"
 
 #define LED pins[0]
