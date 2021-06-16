@@ -1,3 +1,5 @@
+# WARNING: this project is no more active development.
+
 # SomfyControl for ESP8266
 
 ## Introduction
